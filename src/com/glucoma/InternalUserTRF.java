@@ -13,6 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.glucoma.utils.ActionEnum;
 import com.glucoma.utils.ReadExcel;
 
 //https://www.youtube.com/watch?v=sPGn11JAeyY
@@ -65,7 +66,9 @@ public class InternalUserTRF {
 		for(int i = 1; i< heads.size(); i++) {
 			String header = heads.get(i);
 			if (isSubmit(header)) {
-				submitTRF(driver);
+				if("true".equals(getValue(header))) {
+					submitTRF(driver);
+				}
 				continue;
 			}
 			String xPath = getXPath(header);
@@ -75,18 +78,37 @@ public class InternalUserTRF {
 			System.out.println(xPath);
 			try {
 				WebElement webElement = driver.findElement(By.xpath(xPath));
-				if(isRadio(header) || isCheckbox(header) || isSwitch(header)) {
+				switch (ActionEnum.getActionEnum(getInputType(header))) {
+				case RADIO:
+				case CHECKBOX:
+				case SWITCH:
+				case CLICK:
 					webElement.click();
-				} else if(isSelectBox(header)) {
+					break;
+				case SELECT:
 					webElement.click();
 					Thread.sleep(500);
 					webElement.sendKeys("", Keys.ENTER);
-				} else {
+					break;
+				case INPUT:
 					webElement.sendKeys(getValue(header));
-					System.out.println(getValue(header));
+					//System.out.println(getValue(header));
+					break;
+				case SELECT_SEARCH:
+					webElement.click();
+					webElement.sendKeys(getValue(header));
+					webElement.click();
+					Thread.sleep(500);
+					webElement.sendKeys("", Keys.ENTER);
+					break;
+				default:
+					webElement.sendKeys(getValue(header));
+					//System.out.println(getValue(header));
+					break;
 				}
 			} catch (Exception e) {
-				System.out.println("Not found xPath of " + header);
+				System.out.println(e.getMessage());
+				System.out.println("Not found xPath of " + header + e.getMessage());
 			}
 		}
 		
@@ -102,7 +124,7 @@ public class InternalUserTRF {
 		new WebDriverWait(driver, Duration.ofMinutes(1))
 			.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@id=\"cdk-overlay-9\"]/nz-modal-container/div/div/div[2]/app-validation-message/div[3]/div/nz-space/button[2]")));
 		
-		driver.quit();
+//		driver.quit();
 	}
 	
 	public static void loadMasterdata() throws IOException {
@@ -135,22 +157,6 @@ public class InternalUserTRF {
 	public static String getInputType(String header) {
 		int index = getIndexOfHead(header);
 		return inputTypes.get(index);
-	}
-	
-	private static boolean isRadio(String header) {
-		return "radio".equals(getInputType(header));
-	}
-
-	private static boolean isCheckbox(String header) {
-		return "checkbox".equals(getInputType(header));
-	}
-
-	private static boolean isSelectBox(String header) {
-		return "select".equals(getInputType(header));
-	}
-
-	private static boolean isSwitch(String header) {
-		return "switch".equals(getInputType(header));
 	}
 
 	private static boolean isSubmit(String header) {
