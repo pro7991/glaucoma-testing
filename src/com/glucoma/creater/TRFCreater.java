@@ -13,7 +13,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.glucoma.utils.ActionEnum;
 import com.glucoma.utils.ReadExcel;
 
 //https://www.youtube.com/watch?v=sPGn11JAeyY
@@ -25,10 +24,16 @@ public abstract class TRFCreater {
 	private List<String> rowData;
 	private List<String> xPaths;
 	private String fileLocation;
+	protected boolean update;
 	
 	public TRFCreater(String fileLocation) throws IOException {
-		System.setProperty("webdriver.chrome.driver", "chromedriver_win32\\chromedriver.exe");
+		this(fileLocation, false);
+	}
+
+	public TRFCreater(String fileLocation, boolean update) throws IOException {
+		System.setProperty("webdriver.chrome.driver", "chromedriver_win32/chromedriver.exe");
 		this.fileLocation = fileLocation;
+		this.update = update;
 		loadMasterdata();
 	}
 	
@@ -59,7 +64,6 @@ public abstract class TRFCreater {
 		redirectToTRF(driver);
 		
 		fillData(driver);
-		
 	}
 
 	private void fillData(WebDriver driver) {
@@ -121,7 +125,7 @@ public abstract class TRFCreater {
 		heads = excel.get(0);
 		inputTypes = excel.get(1);
 		xPaths = excel.get(2);
-//		rowData = excel.get(3);
+		rowData = excel.get(3);
 //		for(int i=0; i<heads.size(); i++) {
 //			System.out.print(i + "\t" + heads.get(i) + "\t");
 //			System.out.print(inputTypes.get(i) + "\t");
@@ -160,6 +164,10 @@ public abstract class TRFCreater {
 			}
 		}
 		return -1;
+	}
+	
+	public String getSpecimenId() {
+		return this.rowData.get(0);
 	}
 
 	protected abstract void login(WebDriver driver);

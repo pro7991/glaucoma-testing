@@ -37,6 +37,7 @@ public class ReadExcel {
             data.put(i, new ArrayList<String>());
             for(int c = 0; c<coutHeader; c++){
             	Cell cell = row.getCell(c, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+            	cell.removeFormula();
                 switch (cell.getCellType()) {
                 case STRING:
                     data.get(i)
