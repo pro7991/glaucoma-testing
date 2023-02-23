@@ -37,14 +37,7 @@ public class TRFExternalCreater extends TRFCreater{
 	@Override
 	protected void submitTRF(WebDriver driver) {
 		//Submit TRF
-		driver.findElement(By.xpath("/html/body/app-root/div/avagen-pages-new-trf/div/div[2]/div[2]/div/form/div[7]/div[2]/button")).click();
-		
-		new WebDriverWait(driver, Duration.ofMinutes(1))
-			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"cdk-overlay-9\"]/nz-modal-container/div/div/div[2]/app-validation-message/div[3]/div/nz-space/button[2]"))).click();
-		
-		new WebDriverWait(driver, Duration.ofMinutes(1))
-			.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@id=\"cdk-overlay-9\"]/nz-modal-container/div/div/div[2]/app-validation-message/div[3]/div/nz-space/button[2]")));
-		
+		driver.findElement(By.xpath("/html/body/app-root/avagen-pages/nz-layout/nz-content/avagen-pages-new-trf-glaucoma/div/div[2]/div[2]/div/form/div[8]/div/button[2]")).click();
 		//driver.quit();
 	}
 

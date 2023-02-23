@@ -103,7 +103,7 @@ public abstract class TRFCreater {
 					webElement.sendKeys(getValue(header));
 					break;
 				case SELECT_SEARCH:
-					webElement.click();
+//					webElement.click();
 					webElement.sendKeys(getValue(header));
 					webElement.click();
 					Thread.sleep(500);
