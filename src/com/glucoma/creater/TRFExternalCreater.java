@@ -41,4 +41,13 @@ public class TRFExternalCreater extends TRFCreater{
 		//driver.quit();
 	}
 
+	@Override
+	protected void uploadDocument(WebDriver driver, String fileUrl) throws InterruptedException {
+		By chooseFileBtn = By.id("fileLink");
+		Thread.sleep(500);
+		driver.findElement(chooseFileBtn).sendKeys(fileUrl);
+		Thread.sleep(500);
+		driver.findElement(By.xpath("//*[@id=\"sampleInfoSection\"]/div/div/div[2]/nz-form-item/nz-form-control/div/div/div[1]/div[2]/div/a[1]")).click();
+	};
+
 }

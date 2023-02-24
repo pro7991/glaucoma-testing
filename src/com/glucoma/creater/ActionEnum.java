@@ -8,7 +8,7 @@ public enum ActionEnum {
 	CHECKBOX,
 	SWITCH, 
 	
-	CLICK;
+	CLICK, UPLOAD_DOCUMENT;
 	
 	public static ActionEnum getActionEnum(String actionEnum) {
 		if(actionEnum == null || actionEnum.isEmpty()) 

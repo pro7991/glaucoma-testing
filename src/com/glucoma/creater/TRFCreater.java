@@ -1,5 +1,6 @@
 package com.glucoma.creater;
 
+import java.awt.AWTException;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
@@ -82,10 +83,14 @@ public abstract class TRFCreater {
 			System.out.println(xPath);
 			try {
 				WebElement webElement = null;
-				if(i ==0 ) {
-					webElement = new WebDriverWait(driver, Duration.ofMinutes(1)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
-				} else {
-					webElement = driver.findElement(By.xpath(xPath));
+				try {
+					if(i ==0 ) {
+						webElement = new WebDriverWait(driver, Duration.ofMinutes(1)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
+					} else {
+						webElement = driver.findElement(By.xpath(xPath));
+					}
+				} catch (Exception e) {
+					System.out.println("Not found element of xPath: " + xPath);
 				}
 				switch (ActionEnum.getActionEnum(getInputType(header))) {
 				case RADIO:
@@ -109,16 +114,20 @@ public abstract class TRFCreater {
 					Thread.sleep(500);
 					webElement.sendKeys("", Keys.ENTER);
 					break;
+				case UPLOAD_DOCUMENT:
+					uploadDocument(driver, getValue(header));
+					break;
 				default:
 					webElement.sendKeys(getValue(header));
 					break;
 				}
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
-				System.out.println("Not found xPath of " + header + e.getMessage());
+				System.out.println("\n\nException: " + e.getMessage() + "\n\n");
 			}
 		}
 	}
+	
+	protected abstract void uploadDocument(WebDriver driver, String fileUrl) throws InterruptedException;
 	
 	private void loadMasterdata() throws IOException {
 		excel = ReadExcel.readExcel(fileLocation);

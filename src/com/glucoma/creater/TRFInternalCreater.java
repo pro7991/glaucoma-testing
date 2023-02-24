@@ -42,12 +42,31 @@ public class TRFInternalCreater extends TRFCreater{
 		driver.findElement(By.xpath("/html/body/app-root/div/avagen-pages-new-trf/div/div[2]/div[2]/div/form/div[6]/div[2]/button")).click();
 		
 		new WebDriverWait(driver, Duration.ofMinutes(1))
-			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"cdk-overlay-9\"]/nz-modal-container/div/div/div[2]/app-validation-message/div[3]/div/nz-space/button[2]"))).click();
-		
+			.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"cdk-overlay-10\"]/nz-modal-container/div/div/div[2]/app-validation-message/div[3]/div/nz-space/button[2]"))).click();
 		new WebDriverWait(driver, Duration.ofMinutes(1))
-			.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@id=\"cdk-overlay-9\"]/nz-modal-container/div/div/div[2]/app-validation-message/div[3]/div/nz-space/button[2]")));
+			.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@id=\"cdk-overlay-10\"]/nz-modal-container/div/div/div[2]/app-validation-message/div[3]/div/nz-space/button[2]")));
 		
 		//driver.quit();
 	}
 
+	protected void uploadDocument(WebDriver driver, String fileUrl) throws InterruptedException {
+		Thread.sleep(500);
+		driver.findElement(By.xpath("//*[@id=\"fileUploadSection\"]/div/div/span/span")).click();
+		Thread.sleep(500);
+		driver.findElement(By.xpath("//*[@id=\"collapseExample\"]/div/div[2]/div[2]/nz-form-item/nz-form-control/div/div/nz-select/nz-select-top-control/nz-select-item")).click();
+		Thread.sleep(500);
+		driver.findElement(By.xpath("//*[@id=\"cdk-overlay-0\"]/nz-option-container/div/cdk-virtual-scroll-viewport/div[1]/nz-option-item[8]")).click();
+		Thread.sleep(500);
+
+		By chooseFileBtn = By.id("fileLink");
+		Thread.sleep(500);
+		driver.findElement(chooseFileBtn).sendKeys(fileUrl);
+		Thread.sleep(500);
+		driver.findElement(By.xpath("//*[@id=\"collapseExample\"]/div/div[3]/div/a[1]")).click();
+		
+		By chooseFileBtn1 = By.xpath("//*[@id=\"accessioningDetailsSection\"]/nz-collapse/nz-collapse-panel/div[2]/div/div/div/div[4]/div/div[1]/div/nz-upload/div/div/input");
+		Thread.sleep(500);
+		driver.findElement(chooseFileBtn1).sendKeys(fileUrl);
+	};
+	
 }
