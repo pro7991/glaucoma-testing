@@ -1,13 +1,19 @@
 package com.glucoma.creater;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.glucoma.utils.TakeSnapShot;
 
 //https://www.youtube.com/watch?v=sPGn11JAeyY
 public class TRFInternalCreater extends TRFCreater{
@@ -24,6 +30,9 @@ public class TRFInternalCreater extends TRFCreater{
 		WebElement password = driver.findElement(By.xpath("/html/body/app-root/div/app-login/div/div/div/form/div[2]/input"));
 		password.sendKeys("Cov@1234");
 		WebElement loginBtn = driver.findElement(By.xpath("/html/body/app-root/div/app-login/div/div/div/form/div[4]/button"));
+		
+//		TakeSnapShot.takeSnapShot(driver, "login_page.png");
+
 		loginBtn.click();
 	}
 
