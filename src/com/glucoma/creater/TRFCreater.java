@@ -14,6 +14,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.glucoma.utils.ConfigReader;
 import com.glucoma.utils.ReadExcel;
 
 //https://www.youtube.com/watch?v=sPGn11JAeyY
@@ -27,6 +28,9 @@ public abstract class TRFCreater {
 	private String fileLocation;
 	protected boolean update;
 	protected Environment env = Environment.QA;
+	protected String loginUrl;
+	protected String username;
+	protected String password;
 	
 	public TRFCreater(String fileLocation) throws IOException {
 		this(fileLocation, false);
@@ -35,6 +39,7 @@ public abstract class TRFCreater {
 	public TRFCreater(String fileLocation, Environment env) throws IOException {
 		this(fileLocation);
 		this.env = env;
+		ConfigReader.load(env);
 	}
 
 	public TRFCreater(String fileLocation, boolean update) throws IOException {

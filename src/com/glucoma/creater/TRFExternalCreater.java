@@ -9,11 +9,20 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.glucoma.utils.ConfigReader;
+
 //https://www.youtube.com/watch?v=sPGn11JAeyY
 public class TRFExternalCreater extends TRFCreater{
 	
 	public TRFExternalCreater(String fileLocation) throws IOException {
 		super(fileLocation);
+	}
+
+	public TRFExternalCreater(String fileLocation, Environment evn) throws IOException {
+		super(fileLocation, evn);
+		super.loginUrl = ConfigReader.avagenLoginUrl;
+		super.username = ConfigReader.avagenUsername;
+		super.password = ConfigReader.avagenPassword;
 	}
 
 	@Override

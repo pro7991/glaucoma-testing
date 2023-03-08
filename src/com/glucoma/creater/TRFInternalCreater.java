@@ -13,6 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.glucoma.utils.ConfigReader;
 import com.glucoma.utils.TakeSnapShot;
 
 //https://www.youtube.com/watch?v=sPGn11JAeyY
@@ -24,31 +25,23 @@ public class TRFInternalCreater extends TRFCreater{
 
 	public TRFInternalCreater(String fileLocation, Environment env) throws IOException {
 		super(fileLocation, env);
+		super.loginUrl = ConfigReader.avelinoLoginUrl;
+		super.username = ConfigReader.avelinoUsername;
+		super.password = ConfigReader.avelinoPassword;
 	}
 
 	@Override
 	protected void login(WebDriver driver) {
-		driver.get(getLoginUrl());
+		driver.get(super.loginUrl);
 		WebElement username = driver.findElement(By.xpath("/html/body/app-root/div/app-login/div/div/div/form/div[1]/input"));
-		username.sendKeys("cov2_lab@mailinator.com");
+		username.sendKeys(super.username);
 		WebElement password = driver.findElement(By.xpath("/html/body/app-root/div/app-login/div/div/div/form/div[2]/input"));
-		password.sendKeys("Cov@1234");
+		password.sendKeys(super.password);
 		WebElement loginBtn = driver.findElement(By.xpath("/html/body/app-root/div/app-login/div/div/div/form/div[4]/button"));
 		
 //		TakeSnapShot.takeSnapShot(driver, "login_page.png");
 
 		loginBtn.click();
-	}
-
-	private String getLoginUrl() {
-		switch (super.env) {
-		case UAT:
-			return "https://uat.avellinoaccess.com/login";
-		case QA:
-			return "https://cov2.qaavageneye.link/login";
-		default:
-			return "https://cov2.qaavageneye.link/login";
-		}
 	}
 
 	@Override
