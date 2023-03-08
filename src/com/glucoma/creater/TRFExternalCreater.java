@@ -27,11 +27,11 @@ public class TRFExternalCreater extends TRFCreater{
 
 	@Override
 	protected void login(WebDriver driver) {
-		driver.get("https://app-eb2.qaavageneye.link/login");
+		driver.get(super.loginUrl);
 		WebElement username = driver.findElement(By.xpath("/html/body/app-root/avagen-login/div/div/div/form/nz-form-item[1]/nz-form-control/div/div/input"));
-		username.sendKeys("lienop@mailinator.com");
+		username.sendKeys(super.username);
 		WebElement password = driver.findElement(By.xpath("/html/body/app-root/avagen-login/div/div/div/form/nz-form-item[2]/nz-form-control/div/div/input"));
-		password.sendKeys("Avagen@1234");
+		password.sendKeys(super.password);
 		WebElement loginBtn = driver.findElement(By.xpath("/html/body/app-root/avagen-login/div/div/div/form/nz-form-item[4]/button"));
 		loginBtn.click();
 	}
