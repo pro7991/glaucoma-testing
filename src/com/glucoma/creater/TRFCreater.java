@@ -26,9 +26,15 @@ public abstract class TRFCreater {
 	private List<String> xPaths;
 	private String fileLocation;
 	protected boolean update;
+	protected Environment env = Environment.QA;
 	
 	public TRFCreater(String fileLocation) throws IOException {
 		this(fileLocation, false);
+	}
+
+	public TRFCreater(String fileLocation, Environment env) throws IOException {
+		this(fileLocation);
+		this.env = env;
 	}
 
 	public TRFCreater(String fileLocation, boolean update) throws IOException {

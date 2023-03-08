@@ -22,9 +22,13 @@ public class TRFInternalCreater extends TRFCreater{
 		super(fileLocation);
 	}
 
+	public TRFInternalCreater(String fileLocation, Environment env) throws IOException {
+		super(fileLocation, env);
+	}
+
 	@Override
 	protected void login(WebDriver driver) {
-		driver.get("https://cov2.qaavageneye.link/login");
+		driver.get(getLoginUrl());
 		WebElement username = driver.findElement(By.xpath("/html/body/app-root/div/app-login/div/div/div/form/div[1]/input"));
 		username.sendKeys("cov2_lab@mailinator.com");
 		WebElement password = driver.findElement(By.xpath("/html/body/app-root/div/app-login/div/div/div/form/div[2]/input"));
@@ -34,6 +38,13 @@ public class TRFInternalCreater extends TRFCreater{
 //		TakeSnapShot.takeSnapShot(driver, "login_page.png");
 
 		loginBtn.click();
+	}
+
+	private String getLoginUrl() {
+		if(Environment.UAT.equals(super.env)) {
+			return "https://uat.avellinoaccess.com/login";
+		}
+		return "https://cov2.qaavageneye.link/login";
 	}
 
 	@Override
@@ -71,7 +82,7 @@ public class TRFInternalCreater extends TRFCreater{
 		Thread.sleep(500);
 		driver.findElement(chooseFileBtn).sendKeys(fileUrl);
 		Thread.sleep(500);
-		driver.findElement(By.xpath("//*[@id=\"collapseExample\"]/div/div[3]/div/a[1]")).click();
+//		driver.findElement(By.xpath("//*[@id=\"collapseExample\"]/div/div[3]/div/a[1]")).click();
 		
 		By chooseFileBtn1 = By.xpath("//*[@id=\"accessioningDetailsSection\"]/nz-collapse/nz-collapse-panel/div[2]/div/div/div/div[4]/div/div[1]/div/nz-upload/div/div/input");
 		Thread.sleep(500);
