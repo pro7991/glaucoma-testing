@@ -41,10 +41,14 @@ public class TRFInternalCreater extends TRFCreater{
 	}
 
 	private String getLoginUrl() {
-		if(Environment.UAT.equals(super.env)) {
+		switch (super.env) {
+		case UAT:
 			return "https://uat.avellinoaccess.com/login";
+		case QA:
+			return "https://cov2.qaavageneye.link/login";
+		default:
+			return "https://cov2.qaavageneye.link/login";
 		}
-		return "https://cov2.qaavageneye.link/login";
 	}
 
 	@Override
