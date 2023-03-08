@@ -28,8 +28,8 @@ public class ConfigReader {
 				avelinoPassword = prop.getProperty("qa.avellinoaccess.login.password");
 				
 				avagenLoginUrl = prop.getProperty("qa.avagen.login.url");
-				avagenUsername = prop.getProperty("qa.avagen.login.url");
-				avagenPassword = prop.getProperty("qa.avagen.login.url");
+				avagenUsername = prop.getProperty("qa.avagen.login.username");
+				avagenPassword = prop.getProperty("qa.avagen.login.password");
 				break;
 			case UAT:
 				avelinoLoginUrl = prop.getProperty("uat.avellinoaccess.login.url");
@@ -37,8 +37,8 @@ public class ConfigReader {
 				avelinoPassword = prop.getProperty("uat.avellinoaccess.login.password");
 				
 				avagenLoginUrl = prop.getProperty("uat.avagen.login.url");
-				avagenUsername = prop.getProperty("uat.avagen.login.url");
-				avagenPassword = prop.getProperty("uat.avagen.login.url");
+				avagenUsername = prop.getProperty("uat.avagen.login.username");
+				avagenPassword = prop.getProperty("uat.avagen.login.password");
 				break;
 			default:
 				break;
