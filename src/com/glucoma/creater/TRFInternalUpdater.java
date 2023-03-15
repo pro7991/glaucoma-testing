@@ -45,7 +45,7 @@ public class TRFInternalUpdater extends TRFCreater{
 	@Override
 	protected void submitTRF(WebDriver driver) {
 		//Submit TRF
-		driver.findElement(By.xpath("/html/body/app-root/div/avagen-pages-new-trf/div/div[2]/div[2]/div/form/div[6]/div[2]/button")).click();
+		driver.findElement(By.xpath("/html/body/app-root/div/avagen-pages-new-trf/div/div[2]/div[2]/div/form/div[7]/div[2]/button")).click();
 		
 		new WebDriverWait(driver, Duration.ofMinutes(1))
 			.until(ExpectedConditions.visibilityOfElementLocated(By.className("btn-padding bdr-rd-40 btn-confirm-error bold ant-btn ant-btn-primary ant-btn-lg"))).click();
