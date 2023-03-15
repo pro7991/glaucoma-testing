@@ -1,6 +1,5 @@
 package com.glucoma.creater;
 
-import java.awt.AWTException;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
@@ -11,6 +10,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -43,7 +43,7 @@ public abstract class TRFCreater {
 	}
 
 	public TRFCreater(String fileLocation, boolean update) throws IOException {
-		System.setProperty("webdriver.chrome.driver", "chromedriver_win32/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "chromedriver_win32/chromedriver_11.exe");
 		this.fileLocation = fileLocation;
 		this.update = update;
 		loadMasterdata();
@@ -69,7 +69,9 @@ public abstract class TRFCreater {
 	}
 
 	private void createTRF() {
-		WebDriver driver = new ChromeDriver();
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--remote-allow-origins=*");
+		WebDriver driver = new ChromeDriver(options);
 		
 		login(driver);
 		

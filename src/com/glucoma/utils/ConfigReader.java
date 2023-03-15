@@ -20,29 +20,16 @@ public class ConfigReader {
             InputStream input = ConfigReader.class.getClassLoader().getResourceAsStream("config.properties");
             Properties prop = new Properties();
             prop.load(input);
-
-            switch (env) {
-			case QA:
-				avelinoLoginUrl = prop.getProperty("qa.avellinoaccess.login.url");
-				avelinoUsername = prop.getProperty("qa.avellinoaccess.login.username");
-				avelinoPassword = prop.getProperty("qa.avellinoaccess.login.password");
-				
-				avagenLoginUrl = prop.getProperty("qa.avagen.login.url");
-				avagenUsername = prop.getProperty("qa.avagen.login.username");
-				avagenPassword = prop.getProperty("qa.avagen.login.password");
-				break;
-			case UAT:
-				avelinoLoginUrl = prop.getProperty("uat.avellinoaccess.login.url");
-				avelinoUsername = prop.getProperty("uat.avellinoaccess.login.username");
-				avelinoPassword = prop.getProperty("uat.avellinoaccess.login.password");
-				
-				avagenLoginUrl = prop.getProperty("uat.avagen.login.url");
-				avagenUsername = prop.getProperty("uat.avagen.login.username");
-				avagenPassword = prop.getProperty("uat.avagen.login.password");
-				break;
-			default:
-				break;
-			}
+            
+            String evnPrefix = env.toString().toLowerCase();
+            //#AvellinoAccess Glaucoma:
+            avelinoLoginUrl = prop.getProperty(evnPrefix + ".avellinoaccess.login.url");
+			avelinoUsername = prop.getProperty(evnPrefix + ".avellinoaccess.login.username");
+			avelinoPassword = prop.getProperty(evnPrefix + ".avellinoaccess.login.password");
+			//#Avagen Glaucoma
+			avagenLoginUrl = prop.getProperty(evnPrefix + ".avagen.login.url");
+			avagenUsername = prop.getProperty(evnPrefix + ".avagen.login.username");
+			avagenPassword = prop.getProperty(evnPrefix + ".avagen.login.password");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

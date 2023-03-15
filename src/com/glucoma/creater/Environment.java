@@ -1,5 +1,5 @@
 package com.glucoma.creater;
 
 public enum Environment {
-	QA, UAT
+	QA, UAT, STAGING, PROD
 }
